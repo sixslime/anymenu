@@ -1,6 +1,6 @@
 {
     "values": [
-        {"id":"#namespace:pre_load","required": false}
+        {"id":"#anymenu:pre_load","required": false}
 
     ]
 }
