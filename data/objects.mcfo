@@ -1,6 +1,6 @@
 
 anymenu:data {
-  
+  hosts[]: Host
   this[]: {
     menu_id: $MenuID
     interaction? {
@@ -9,15 +9,35 @@ anymenu:data {
   }
 }
 
+HostIdentifier: {
+  block: space-vector
+} | {
+  entity: uuid
+}
+
+HostIdentifierInternal: {
+  block: space-vector
+} | {
+  entity: {
+    uuid: uuid
+    guuid: guuid
+  }
+}
+
 Host: {
-  attached_menus[]: MenuInstance
-  _: {
-    layers[]: {
-      slot: int
-      item: item
+  identifier: HostIdentifierInternal
+  containers[]: {
+    path: string
+    attached_menus[]: MenuInstance
+    _: {
+      layers[]: {
+        slot: int
+        item: item
+      }
     }
   }
 }
+
 MenuInstance: {
   index: int
   slot_remaps[]? {
