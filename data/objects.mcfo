@@ -1,1 +1,64 @@
 
+anymenu:data {
+  
+  this[]: {
+    menu_id: $MenuID
+    interaction? {
+      data? any
+    }
+  }
+}
+
+Host: {
+  attached_menus[]: MenuInstance
+  _: {
+    layers[]: {
+      slot: int
+      item: item
+    }
+  }
+}
+MenuInstance: {
+  index: int
+  slot_remaps[]? {
+    from: int
+    to: int
+  }
+  menu: MenuDefinition
+}
+
+MenuDefinition: {
+  id: $MenuID
+  allocated_slots[]: int
+  root: MenuNode
+}
+
+MenuNode: {
+  submenu: {
+    <any...>: MenuNode
+  }
+  slots[]: MenuItemSlot
+  hooks? {
+    on_load[]? $command
+    on_unload[]? $command
+  }
+}
+
+MenuItemSlot: {
+  slot: int
+  content: {
+    item: item
+    interaction: {
+      is_real: bool
+      runs? {
+        command: $command
+        with_data? any
+      }
+      navigates_to[]? string
+    }
+    dynamic? $storage
+  }
+}
+
+$MenuID: string =
+<namespace>:<any>
